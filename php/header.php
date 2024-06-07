@@ -19,7 +19,7 @@ function outputBannerNavigation($pageName){
         
         /* Array of pages linking them together */
         $linkNames = array("Home", "Game", "Login", "Register", "Score");
-        $linkAddresses = array("main_page.php", "game_page.php", "login.php", "register.php", "score.php");
+        $linkAddresses = array("index.php", "game_page.php", "login.php", "register.php", "score.php");
         
         /* Code for each selected address from array */
         for($x = 0; $x < count($linkNames); $x++){
