@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Aim Assistant</title>
+        
+        <!-- Link to external style sheet -->
+        <link rel="stylesheet" type="text/css" href="styles.css">
+        <!-- Link php file-->
+        <form action="./php/register.php" method="post"></form>
+    </head>
+    <body>
+        
+        <!-- Banner describing the page -->
+        <div class="banner"> <b> AIM ASSISTANT </b></div>
+        
+        <!-- Navigation section -->
+        <div class="navigation">    
+            <a href="main_page.html">Home</a>
+            <a href="game_page.html">Game</a>
+            <a href="login.html">Login</a>
+            <a class="selected" href="register.html">Register</a>
+            <a href="score.html">Score</a>
+        </div>
+
+        <!-- Brief description of Register Page -->
+        <h1 style="text-align: center" > REGISTER PAGE </h1>
+        <p style="color:black; font-size:18px;" > <b> Welcome to the Register Page </b> </p>
+        <p> Please enter your name below to save your score </p>
+
+        <!-- Assigning variable to user input -->
+        <p style="text-align: center; font-size: 18px;"><!-- Registration input fields -->
+            Name: <input class="input" type="text" id="userName"><br>
+            Age: <input class="input" type="number" id="userAge"><br>
+            Email: <input class="input" type="email" id="EmailInput"><br>
+            Password: <input class="input" type="password" id="PasswordInput"><br>
+            <p></p>
+            <div class="center">
+                <!-- Button to start login JavaScript function -->
+                <button class="button" onclick="storeUser()">Register</button>
+            </div>
+            
+        </p>
+        <!-- Result of registration displayed here -->
+        <p style="color:red; font-size:18px;" id="Result"></p>
+        
+        <!-- JavaScript-->
+        <script>
+            function storeUser(){
+                //Build object that we are going to store
+                var usrObject = {};
+                usrObject.name = document.getElementById("userName").value;
+                usrObject.age = document.getElementById("userAge").value;
+                usrObject.email = document.getElementById("EmailInput").value;
+                usrObject.password = document.getElementById("PasswordInput").value;
+                
+                //Store user
+                localStorage[usrObject.name] = JSON.stringify(usrObject);
+                localStorage[usrObject.age] = JSON.stringify(usrObject);
+                localStorage[usrObject.email] = JSON.stringify(usrObject);
+                localStorage[usrObject.password] = JSON.stringify(usrObject);
+
+                // store data individually
+                localStorage.setItem('playerInfo', JSON.stringify(usrObject));
+                localStorage.setItem('playerName', JSON.stringify(usrObject.name));
+                localStorage.setItem('playerAge', JSON.stringify(usrObject.age));
+                localStorage.setItem('playerEmail', JSON.stringify(usrObject.email));
+                localStorage.setItem('playerPassword', JSON.stringify(usrObject.password));
+
+                // assigning variable to stored user input
+                let validName = document.getElementById("userName").value;
+                let validAge = document.getElementById("userAge").value;
+                let validEmail = document.getElementById("EmailInput").value;
+                let validPassword = document.getElementById("PasswordInput").value;
+
+                var regEmail=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g;  //Javascript reGex for Email Validation.
+                var regName = /\d+$/g; //Javascript reGex for Name Validation.
+
+                // conditions for user input to be accepted and...
+                // error messages to display on console if conditions are not met
+                if (validName == "" || regName.test(validName)) {
+                    window.alert("Please enter your name properly. Name must not have number");
+                    validName.focus();
+                    return false;
+                }
+
+                if (validAge == "") {
+                    alert("Please enter your age.");
+                    validAge.focus();
+                    return false;
+                }
+
+                if (validAge < 1){
+                    alert("Your age cannot be below 1.");
+                    validAge.focus();
+                    return false;
+                }
+
+                if (validAge > 100){
+                    alert("Your age cannot be above 100.");
+                    validAge.focus();
+                    return false;
+                }
+
+                if (validEmail == "" || !regEmail.test(validEmail)) {
+                    window.alert("Please enter a valid e-mail address.");
+                    validEmail.focus();
+                    return false;
+                }
+                  
+                if (validPassword == "") {
+                    alert("Please enter your password.");
+                    validPassword.focus();
+                    return false;
+                }
+ 
+                if(validPassword.length < 6) {
+                    alert("Password should be at least 6 character long.");
+                    validPassword.focus();
+                    return false;
+ 
+                }
+                
+                else{
+                    //Display result if all conditions are met
+                    document.getElementById("Result").innerHTML = "<b>Registration Successful.</b>"; 
+                }
+                
+                   
+                
+            }
+
+        </script>
+    
+        <footer style="color:maroon">  
+            <p> <b>Author: Miriam Yakowa</b> </p>
+            <p><a href="mailto:my364@live.mdx.ac.uk" style="color:maroon"> my364@live.mdx.ac.uk </a> </p>
+        </footer>
+        
+    </body>
+    
+
+</html>

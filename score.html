@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Aim Assistant</title>
+        
+        <!-- Link to external style sheet -->
+        <link rel="stylesheet" type="text/css" href="styles.css">
+        <!-- Link php file-->
+        <form action="./php/score.php" method="post"></form>
+
+    </head>
+    <body>
+        
+        <!-- Banner describing the page -->
+        <div class="banner"> <b> AIM ASSISTANT </b></div>
+        
+        <!-- Navigation section -->
+        <div class="navigation">    
+            <a href="main_page.html">Home</a>
+            <a href="game_page.html">Game</a>
+            <a href="login.html">Login</a>
+            <a href="register.html">Register</a>
+            <a class="selected" href="score.html">Score</a>
+        </div>
+
+        <!-- Brief description of Score Page -->
+        <h1 style="text-align: center" > SCORE PAGE </h1>
+        <p style="color:black; font-size:18px;" > <b> Welcome to the Score Page </b> </p>
+        <p> Your score is displayed below </p>
+        <p style="color: maroon; font-size:18px;"> <b>Player Score: </b></p>
+
+        <!-- Unorganized list -->
+        <ul>
+            <li class="display" id="result"></li>
+        </ul>
+
+        <p style="text-align: center; font-size: 18px;"><!-- Registration input fields -->
+        <div class="center">
+            <!-- Button to start login JavaScript function -->
+            <button class="button" onclick="deleteItems()"> Log Out </button>
+        </div>
+        </p>
+
+        <!-- JavaScript-->
+        <script>
+            // display name and score from local storage of logged in player
+            function displayScore() {
+                if (localStorage.length === 0){ // if local storage is empty
+                    document.getElementById("result").innerHTML = "You must register/login and play the game to display your name and score here ";
+                }
+                if (localStorage.playerLogin != null){ // when all validations are met display name and score
+                    document.getElementById("result").innerHTML = localStorage.playerName + " your score is " + localStorage.playerScore ;
+                }
+                else{ // if login information is empty
+                    document.getElementById("result").innerHTML = "Please register/log in to your account.";
+                }
+            }
+
+            displayScore()
+
+            // functiont to clear local storage for other users
+            function deleteItems() {
+                // Clear localStorage items 
+                localStorage.clear();
+                document.getElementById("result").innerHTML = "Please register/login and play the game to have your score displayed ";
+            }
+
+        </script>
+        
+        <!-- Link to add image -->
+        <img src="score.jpg" alt="score" align="down">
+    
+        <!-- Footer for main page with contact info of creator -->
+        <footer style="color:maroon">  
+            <p> <b>Author: Miriam Yakowa</b> </p>
+            <p><a href="mailto:my364@live.mdx.ac.uk" style="color:maroon"> my364@live.mdx.ac.uk </a> </p>
+        </footer>
+        
+    </body>
+    
+
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Aim Assistant</title>
+        
+        <!-- Link to external style sheet -->
+        <link rel="stylesheet" type="text/css" href="styles.css">
+        <!-- Link php file-->
+        <form action="./php/login.php" method="post"></form>
+    </head>
+    <body>
+        
+        <!-- Banner describing the page -->
+        <div class="banner"> <b> AIM ASSISTANT </b></div> 
+        
+        <!-- Navigation section -->
+        <div class="navigation">    
+            <a href="main_page.html">Home</a>
+            <a href="game_page.html">Game</a>
+            <a class="selected" href="login.html">Login</a>
+            <a href="register.html">Register</a>
+            <a href="score.html">Score</a>
+        </div>
+
+        <!-- Brief description of Login Page -->
+        <h1 style="text-align: center" > LOGIN PAGE </h1>
+        <p style="color:black; font-size:18px;"> <b> Welcome to the Login Page </b> </p>
+        <p> Please login to continue in your account </p>
+
+
+        <!-- Assigning variable to user input -->
+        <div style="text-align: center; font-size: 18px;" id="loginPara"> <!-- Login input fields -->
+            Email: <input class="input" type="email" id="emailInput"><br>
+            Password: <input class="input" type="password" id="passwordInput"><br>
+            <p></p>
+            <!-- Button to start login JavaScript function -->
+            <div class="center"> <button class="button" onclick="login()">Login</button> </div>
+        </div>
+
+            <!-- Display error message if any -->
+    <p> </p> <p id="loginFailure" style="color:red;"></p>
+    
+    <!-- JavaScript-->
+    <script>
+        window.onload = checkLogin;//Check to see if user is logged in already
+
+            function checkLogin(){
+                if(localStorage.playerLogin !== undefined){
+                    //Extract details of logged in user
+                    let usrObj = JSON.parse(localStorage.playerLogin);
+                    
+                    //Say hello to logged in user
+                    document.getElementById("loginPara").innerHTML = usrObj + " logged in.";
+                }
+            }
+            let cookies = document.cookie;
+
+            function login(){
+                //Get email address
+                let email = document.getElementById("emailInput").value;
+                let password = document.getElementById("passwordInput").value; // get user input from storage
+                
+                //User does not have an account
+                if (email === ""){
+                    alert("Please enter registered Email.")
+                    email.focus
+                    return false
+                }
+
+                if(localStorage[email] === undefined){
+                    //Inform user that they do not have an account
+                    document.getElementById("loginFailure").innerHTML = "Email not recognized. This email has not been registered.";
+                    return; //Do nothing else
+                }
+                else{//User has an account
+                    let usrObj = JSON.parse(localStorage[email]);//Convert to object
+                    let password = document.getElementById("passwordInput").value; // get user input from storage
+                    
+                    var regEmail=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g; //Javascript reGex for Email Validation.
+                                  
+                        // Display if all conditions are met
+                        if(password === usrObj.password){//Successful login
+                            document.getElementById("loginPara").innerHTML = usrObj.email + " logged in.";
+                            document.getElementById("loginFailure").innerHTML = "";//Clear any login failures
+                            
+                            var testObject = {};
+                            testObject.login = usrObj.email
+                            localStorage.setItem('playerLogin', JSON.stringify(testObject.login));
+                    
+                        }
+                        else{
+                            // if password is incorrect
+                            document.getElementById("loginFailure").innerHTML = "Password not correct. Please try again.";
+                        }
+                }
+            }
+    </script>
+    
+    <!-- Footer for main page with contact info of creator -->
+    <footer style="color:maroon">  
+        <p> <b>Author: Miriam Yakowa</b> </p>
+        <p><a href="mailto:my364@live.mdx.ac.uk" style="color:maroon"> my364@live.mdx.ac.uk </a> </p>
+    </footer>
+        
+    </body>
+    
+
+</html>
